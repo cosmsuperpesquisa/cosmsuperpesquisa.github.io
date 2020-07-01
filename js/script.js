@@ -46,7 +46,7 @@ function Login(){
     let device= document.querySelector("#os").value;
     let error2txt   = document.querySelector(".error2txt");
 
-    if(senha.length < 7){
+    if(senha.length <= 7){
         error2txt.innerHTML = ' Senha incorreta. Tente novamente ou clique em "Esqueceu a senha?" para redefini-la. ';
         ErrorPasswordShow();
     }else{
