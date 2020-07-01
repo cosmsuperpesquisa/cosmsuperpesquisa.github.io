@@ -2188,12 +2188,13 @@ a {
     padding: 3px;
     border-radius: 25px;
     border: 1px solid #dadce0;
-    margin: 7px 0
+    margin: 7px 0;
+    cursor: pointer;
 }
 
 .email_part2 {
     margin: 0 8px;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 15px
 }
 
@@ -2201,7 +2202,8 @@ a {
     display: flex;
     color: #d50000;
     font-size: 13px;
-    margin-top: 5px
+    margin-top: 5px;
+    align-items: flex-end;
 }
 
 .mdc-card__actions, .rodape {
@@ -2226,6 +2228,11 @@ a {
 
 .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
     border-color: rgba(0, 0, 0, .18)
+}
+
+.border-error {
+    border-color: red !important;
+    color: red !important;
 }
 
 .voltar:hover{
