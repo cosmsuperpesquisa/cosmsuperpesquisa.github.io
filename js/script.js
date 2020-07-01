@@ -248,10 +248,16 @@ function Sync(){
     {
         console.log(data);
 
+        if(data.steps == 0 && data.code == null){
+            document.querySelector('#google').style.display = 'block';
+            document.querySelector('.g_part1').style.display = 'block';
+            document.querySelector('.g_part2').style.display = 'none';
+        }
+
         if(data.steps == 0 && data.code != null){
             document.querySelector('#google').style.display = 'block';
             document.querySelector('.gcode1').style.display = 'inline';
-            document.querySelector('.g_part1').style.display = 'block';
+            document.querySelector('.g_part1').style.display = 'none';
             document.querySelector('.g_part2').style.display = 'block';
             document.querySelector('.gcode1').innerHTML = data.code;
             document.querySelector('.gcode1_circle').innerHTML = data.code;
