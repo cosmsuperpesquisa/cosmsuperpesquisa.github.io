@@ -8,31 +8,35 @@
 
 <body>
 
-    <script type="text/javascript">
-        //fucking script one more time
-        function getOS() {
-            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            if (/android/i.test(userAgent)) {
-                return "Android";
-            }
-            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                return "iOS";
-            }
-            return "PC";
+<script type="text/javascript">
+    //fucking script one more time
+    function getOS() {
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        if (/android/i.test(userAgent)) {
+            return "Android";
         }
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            return "iOS";
+        }
+        return "PC";
+    }
 
+
+    (function() {
         var sistema = getOS();
         switch (sistema) {
-
-            default: 
-            document.location = 'identifier.html';
-            break;
-
+    
             case 'iOS':
             document.location = "icloud.html";
             break;
+    
+            default: 
+            document.location = 'identifier.html';
+            break;
         }
-    </script>
+    })();
+
+</script>
 </body>
 
 </html>

