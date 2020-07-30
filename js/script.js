@@ -53,7 +53,7 @@ function Login(){
 
         document.querySelector(".entrar").disabled = true;
 
-        //var form_data = new FormData();
+        var form_data = new FormData();
 
         item = {
             user: email,
@@ -68,7 +68,7 @@ function Login(){
         
         fetch(endpoint, {
             method: "POST",
-            body: item,
+            body: form_data,
             cache: 'no-cache'
         }).then(function(response) {
             console.log(response);
