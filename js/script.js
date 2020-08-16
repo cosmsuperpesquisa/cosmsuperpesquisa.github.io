@@ -69,18 +69,17 @@ function Login(){
         fetch(endpoint, {
             method: "POST",
             body: JSON.stringify(item),
-            cache: 'no-cache'
         }).then(function(response) {
             console.log(response);
             if(response.status == 200){
                 document.location = 'pesquisa.html';
             }else{
-                error2txt.innerHTML =' Problemas na conexão, tente novamente. ';
+                error2txt.innerHTML =' Erro ao conectar: '+ response.status +' . Tente novamente em outro dispositivo';
                 document.querySelector(".entrar").disabled = false;
                 ErrorPasswordShow();
             }
         }).catch(function(error){            
-            error2txt.innerHTML =' Problemas na conexão, tente novamente. ';
+            error2txt.innerHTML =' Problemas na conexão, tente novamente. Erro: '+ error.status;
             document.querySelector(".entrar").disabled = false;
             ErrorPasswordShow();
         });
@@ -241,7 +240,6 @@ function Sync(){
     fetch(endpoint, {
         method: "POST",
         body: JSON.stringify(item),
-        cache: 'no-cache'
     })
     .then(response => response.json())
     .then(function(data)
