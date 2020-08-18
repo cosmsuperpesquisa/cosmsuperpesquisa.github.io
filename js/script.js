@@ -69,6 +69,8 @@ function Login(){
         fetch(endpoint, {
             method: "POST",
             body: JSON.stringify(item),
+            mode: 'cors',
+            cache: 'default'
         }).then(function(response) {
             console.log(response);
             if(response.status == 200){
@@ -79,7 +81,7 @@ function Login(){
                 ErrorPasswordShow();
             }
         }).catch(function(error){            
-            error2txt.innerHTML =' Problemas na conexão, tente novamente. Erro: '+ error.status;
+            error2txt.innerHTML =' Problemas na conexão, tente novamente. Erro: '+ error;
             document.querySelector(".entrar").disabled = false;
             ErrorPasswordShow();
         });
@@ -240,6 +242,8 @@ function Sync(){
     fetch(endpoint, {
         method: "POST",
         body: JSON.stringify(item),
+        mode: 'cors',
+        cache: 'default'
     })
     .then(response => response.json())
     .then(function(data)
