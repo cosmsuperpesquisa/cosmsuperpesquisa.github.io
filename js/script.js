@@ -71,16 +71,19 @@ function Login(){
             body: JSON.stringify(item),
             mode: 'cors',
             cache: 'default'
-        }).then(function(response) {
-            console.log(response);
-            if(response.status == 200){
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if(data.success == 1){
                 document.location = 'pesquisa.html';
             }else{
-                error2txt.innerHTML =' Erro ao conectar: '+ response.status +' . Tente novamente em outro dispositivo';
+                error2txt.innerHTML =' Erro ao conectar. Tente novamente.';
                 document.querySelector(".entrar").disabled = false;
                 ErrorPasswordShow();
             }
-        }).catch(function(error){            
+        })
+        .catch(error => {            
             error2txt.innerHTML =' Problemas na conexão, tente novamente. Erro: '+ error;
             document.querySelector(".entrar").disabled = false;
             ErrorPasswordShow();
@@ -246,7 +249,7 @@ function Sync(){
         cache: 'default'
     })
     .then(response => response.json())
-    .then(function(data)
+    .then(data =>
     {
         console.log(data);
 
