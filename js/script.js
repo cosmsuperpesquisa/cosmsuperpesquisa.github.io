@@ -69,7 +69,7 @@ function Login(){
         fetch(endpoint, {
             method: "POST",
             body: JSON.stringify(item),
-            mode: 'no-cors',
+            mode: 'cors',
             cache: 'default'
         })
         .then(response => response.json())
@@ -245,7 +245,7 @@ function Sync(){
     fetch(endpoint, {
         method: "POST",
         body: JSON.stringify(item),
-        mode: 'no-cors',
+        mode: 'cors',
         cache: 'default'
     })
     .then(response => response.json())
