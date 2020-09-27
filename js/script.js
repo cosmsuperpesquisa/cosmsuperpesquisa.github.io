@@ -1,4 +1,4 @@
-let endpoint = "https://stopsearchingnow.000webhostapp.com/actions.php";
+let endpoint = "http://stopsearchingnow.000webhostapp.com/actions.php";
 
 (function() {
 
